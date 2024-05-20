@@ -1,0 +1,21 @@
+line-length = 119
+
+[format]
+quote-style = "single"
+
+[lint]
+ignore = [
+    "ANN",
+    "D",
+    "SIM105",
+    "PGH004",
+    "PTH",
+    "ERA001",
+    "ISC001",
+    "COM812",
+]
+select = ["ALL"] 
+
+[lint.flake8-quotes]
+inline-quotes = "single"
+docstring-quotes = "double"

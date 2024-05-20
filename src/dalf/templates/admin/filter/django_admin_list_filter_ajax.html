@@ -1,0 +1,26 @@
+{% load i18n %}
+<details data-filter-title="{{ title }}" open>
+    <summary>
+        {% blocktranslate with filter_title=title %} By {{ filter_title }} {% endblocktranslate %}
+    </summary>
+    <form method="get">
+        <ul>
+            <li>
+                {% with params=choices|last %}
+                    <input class="djal-selected-value" type="hidden" value="{{ params.selected_value|default_if_none:'' }}" />
+                    <select
+                      class="django-admin-list-filter-ajax"
+                      data-ajax--cache="true"
+                      data-ajax--delay="250"
+                      data-ajax--type="GET"
+                      data-ajax--url="{{ params.ajax_url }}"
+                      data-placeholder="{{ _('All') }}"
+                      data-allow-clear="true"
+                      data-app-label="{{ params.app_label }}"
+                      data-model-name="{{ params.model_name }}"
+                      data-field-name="{{ params.field_name }}"></select>
+                {% endwith %}
+              </li>
+          </ul>
+      </form>
+</details>

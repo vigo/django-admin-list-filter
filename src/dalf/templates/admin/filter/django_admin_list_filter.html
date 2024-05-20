@@ -1,0 +1,19 @@
+{% load i18n %}
+<details data-filter-title="{{ title }}" open>
+    <summary>
+        {% blocktranslate with filter_title=title %} By {{ filter_title }} {% endblocktranslate %}
+    </summary>
+    <form method="get">
+        <ul>
+            <li>
+                {% with params=choices|last %}
+                    <select class="django-admin-list-filter" name="{{ params.field_name }}" data-is-choices-filter="{{ params.is_choices_filter }}">
+                    {% for choice in choices %}
+                        <option value="{{ choice.query_string|iriencode }}"{% if choice.selected %} selected{% endif %}>{{ choice.display }}</option>
+                    {% endfor %}
+                    </select>
+                {% endwith %}
+            </li>
+        </ul>
+    </form>
+</details>
