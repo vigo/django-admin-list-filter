@@ -203,6 +203,21 @@ pip install -e /path/to/django-admin-list-filter
 
 And play with the filters :)
 
+## Publish
+
+Note to my self:
+
+```bash
+pip install build twine
+rake -T
+
+rake build           # Build package
+rake bump[revision]  # Bump version: major,minor,patch
+rake clean           # Remove/Delete build..
+rake upload:main     # Upload package to main distro (release)
+rake upload:test     # Upload package to test distro
+```
+
 ---
 
 ## Change Log

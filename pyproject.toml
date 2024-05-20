@@ -15,6 +15,6 @@ classifiers = [
     "Development Status :: 3 - Alpha",
 ]
 
-# [project.urls]
-# Homepage = ""
-# Issues = ""
+[project.urls]
+Homepage = "https://github.com/vigo/django-admin-list-filter"
+Issues = "https://github.com/vigo/django-admin-list-filter/issues"
