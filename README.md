@@ -205,6 +205,7 @@ Clone the repo somewhere, and install with:
 
 ```bash
 pip install -e /path/to/django-admin-list-filter
+pre-commit install
 ```
 
 And play with the filters :)
@@ -232,6 +233,8 @@ rake upload:test     # Upload package to test distro
 **2024-05-23**
 
 - Add tests
+- Add GitHub actions (test, ruff linter)
+- Add pre-commit hooks
 
 **2024-05-20**
 
