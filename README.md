@@ -4,6 +4,8 @@
 [![Ruff](https://img.shields.io/endpoint?style=for-the-badge&url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![PyPI version](https://img.shields.io/pypi/v/dalf.svg?style=for-the-badge)](https://pypi.org/project/dalf/)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/dalf?style=for-the-badge)
+[![Codecov](https://codecov.io/gh/vigo/django-admin-list-filter/graph/badge.svg?token=6JRNSB6WN1)](https://codecov.io/gh/vigo/django-admin-list-filter)
+
 
 # Django Admin List Filter
 
@@ -216,6 +218,7 @@ rake -T
 rake build           # Build package
 rake bump[revision]  # Bump version: major,minor,patch
 rake clean           # Remove/Delete build..
+rake test            # Run tests
 rake upload:main     # Upload package to main distro (release)
 rake upload:test     # Upload package to test distro
 ```
@@ -223,6 +226,10 @@ rake upload:test     # Upload package to test distro
 ---
 
 ## Change Log
+
+**2024-05-23**
+
+- Add tests
 
 **2024-05-20**
 

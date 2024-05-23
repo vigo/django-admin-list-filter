@@ -33,3 +33,10 @@ task :bump, [:revision] do |t, args|
   abort "Please provide valid revision: #{AVAILABLE_REVISIONS.join(',')}" unless AVAILABLE_REVISIONS.include?(args.revision)
   system "bumpversion #{args.revision}"
 end
+
+desc "Run tests"
+task :test do
+  system %{
+    pytest -s --cov=src/dalf --cov-report=xml tests/testproject
+  }
+end
