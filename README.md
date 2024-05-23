@@ -4,9 +4,7 @@
 [![Ruff](https://img.shields.io/endpoint?style=for-the-badge&url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![PyPI version](https://img.shields.io/pypi/v/dalf.svg?style=for-the-badge)](https://pypi.org/project/dalf/)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/dalf?style=for-the-badge)
-
-
-[![Codecov](https://codecov.io/gh/vigo/django-admin-list-filter/graph/badge.svg?token=6JRNSB6WN1)](https://codecov.io/gh/vigo/django-admin-list-filter)
+[![Codecov](https://img.shields.io/codecov/c/github/vigo/django-admin-list-filter?token=6JRNSB6WN1&style=for-the-badge)](https://codecov.io/gh/vigo/django-admin-list-filter)
 
 
 # Django Admin List Filter
