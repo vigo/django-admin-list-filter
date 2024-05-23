@@ -4,8 +4,9 @@ version = "0.1.0"
 authors = [
     { name="Uğur Özyılmazel", email="ugurozyilmazel@gmail.com" },
 ]
-description = "Django admin list filter with goodies"
+description = "Dead simple autocompletion for Django admin list_filter with goodies."
 readme = "README.md"
+license = { file = "LICENSE" }
 requires-python = ">=3.11"
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -14,6 +15,11 @@ classifiers = [
     "Framework :: Django :: 5.0",
     "Development Status :: 3 - Alpha",
 ]
+keywords = ["django", "django admin", "list filter"]
+
+[project.optional-dependencies]
+build = ["build", "twine"]
+dev = ["Django", "pytest", "pytest-django", "pytest-factoryboy", "pytest-cov"]
 
 [project.urls]
 Homepage = "https://github.com/vigo/django-admin-list-filter"
