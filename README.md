@@ -34,7 +34,7 @@ After **Django Admin List Filter**
 ## Installation
 
 ```bash
-pip install django-admin-list-filter
+pip install dalf
 ```
 
 Add `dalf` to your `INSTALLED_APPS` in your `settings.py`:
