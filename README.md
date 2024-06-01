@@ -203,7 +203,7 @@ pull requests!
 Clone the repo somewhere, and install with:
 
 ```bash
-pip install -e /path/to/django-admin-list-filter
+pip install -e /path/to/dalf
 pre-commit install
 ```
 
