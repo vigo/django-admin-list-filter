@@ -4,9 +4,10 @@ on:
   pull_request:
   push:
     branches:
-      - main
     tags-ignore:
       - '**'
+    paths:
+      - '**/*.py'
 
 jobs:
   build:

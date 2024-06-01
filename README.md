@@ -178,6 +178,7 @@ That’s it!
 ## Contributor(s)
 
 * [Uğur Özyılmazel](https://github.com/vigo) - Creator, maintainer
+* [Ehco](https://github.com/Ehco1996) - Contributor
 
 ---
 
