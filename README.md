@@ -1,4 +1,4 @@
-![Version](https://img.shields.io/badge/version-0.1.0-orange.svg?style=for-the-badge&logo=semver)
+![Version](https://img.shields.io/badge/version-0.1.1-orange.svg?style=for-the-badge&logo=semver)
 ![Python](https://img.shields.io/badge/python-3.11+-green.svg?style=for-the-badge&logo=python)
 ![Django](https://img.shields.io/badge/django-5.0.2-green.svg?style=for-the-badge&logo=django)
 [![Ruff](https://img.shields.io/endpoint?style=for-the-badge&url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
@@ -28,6 +28,16 @@ Before **Django Admin List Filter**
 After **Django Admin List Filter**
 
 ![After Django Admin List Filter](screens/after-dalf.gif?1)
+
+---
+
+## 2024-07-03
+
+Thanks to my dear friend [Bahattin Çiniç][bahattincinic]’s warning, He realized
+that the necessary HTML, CSS, and JavaScript files were missing from the
+published package! I quickly fixed this and published a new version. The `0.1.0`
+version is a faulty version. I apologize to the users for this confusion.
+Thank you. - vigo
 
 ---
 
@@ -107,7 +117,7 @@ Example `admin.py`:
 # admin.py
 from dalf.admin import DALFModelAdmin, DALFRelatedOnlyField, DALFRelatedFieldAjax
 from django.contrib import admin
-
+from YOURAPP.models import Post
 
 @admin.register(Post)
 class PostAdmin(DALFModelAdmin):
@@ -122,9 +132,27 @@ That’s all... There is also `DALFChoicesField`, you can test it out:
 
 ```python
 # admin.py
-from dalf.admin import DALFModelAdmin, DALFChoicesField, DALFRelatedOnlyField, DALFRelatedFieldAjax
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import User
 
+from dalf.admin import (
+    DALFModelAdmin,
+    DALFChoicesField,
+    DALFRelatedOnlyField,
+    DALFRelatedFieldAjax,
+)
+
+from YOURAPP.models import Post, Category, Tag
+
+# must be registered, must have search_fields, required for `author` field demo.
+# this is demo purpose only, you can register/import your own/custom User model
+class UserAdmin(BaseUserAdmin):
+    search_fields = ['username']
+    ordering = ['username']
+
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
 
 @admin.register(Post)
 class PostAdmin(DALFModelAdmin):
@@ -133,6 +161,20 @@ class PostAdmin(DALFModelAdmin):
         ('category', DALFRelatedFieldAjax),  # enable ajax completion for category field (FK)
         ('tags', DALFRelatedOnlyField),      # enable ajax completion for tags field (M2M) if posts has any tag!
     )
+
+# must be registered, must have search_fields
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    search_fields = ['title',]
+    ordering = ['title']
+
+
+# must be registered, must have search_fields
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    search_fields = ['name',]
+    ordering = ['name']
+
 ```
 
 ### Extras
@@ -148,6 +190,8 @@ Now add `timezone` field to `Post` model:
 
 ```python
 # modify models.py, add new ones
+# ...
+
 from timezone_field import TimeZoneField                 # <- add this line
 
 class Post(models.Model):
@@ -179,6 +223,7 @@ That’s it!
 
 * [Uğur Özyılmazel](https://github.com/vigo) - Creator, maintainer
 * [Ehco](https://github.com/Ehco1996) - Contributor
+* [Bahattin Çiniç][bahattincinic] - Bug Report!
 
 ---
 
@@ -203,6 +248,7 @@ pull requests!
 Clone the repo somewhere, and install with:
 
 ```bash
+pip install -r requirements-dev.txt
 pip install -e /path/to/dalf
 pre-commit install
 ```
@@ -228,6 +274,10 @@ rake upload:test     # Upload package to test distro
 ---
 
 ## Change Log
+
+**2024-07-03**
+
+- Now package is working fine :) Thanks to [Bahattin][bahattincinic]!
 
 **2024-06-01**
 
@@ -260,3 +310,4 @@ contributors are expected to adhere to the [code of conduct][coc].
 [1]: https://github.com/demiroren-teknoloji/django-admin-autocomplete-list-filter "Deprecated, old package"
 [coc]: https://github.com/vigo/django-admin-list-filter/blob/main/CODE_OF_CONDUCT.md
 [changelog]: https://github.com/vigo/django-admin-list-filter/blob/main/CHANGELOG.md
+[bahattincinic]: https://github.com/bahattincinic
