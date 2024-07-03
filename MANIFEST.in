@@ -1,0 +1,2 @@
+recursive-include src/dalf/static *
+recursive-include src/dalf/templates *

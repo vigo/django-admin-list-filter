@@ -7,6 +7,6 @@ repos:
     hooks:
       - id: pytest
         name: pytest
-        entry: pytest -s tests/testproject
+        entry: pytest -s tests/testproject/testapp -c tests/testproject/pytest.ini
         language: system
         types: [python]
