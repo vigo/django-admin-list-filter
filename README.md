@@ -279,6 +279,8 @@ rake upload:test     # Upload package to test distro
 
 - Now package is working fine :) Thanks to [Bahattin][bahattincinic]!
 
+---
+
 **2024-06-01**
 
 - Update missing information in the README
