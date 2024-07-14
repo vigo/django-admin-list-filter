@@ -1,5 +1,11 @@
 # Change Log
 
+**2024-07-14**
+
+- Fix choice.display last element issue
+
+---
+
 **2024-07-03**
 
 - Now package is working fine :) Thanks to [Bahattin][bahattincinic]!
