@@ -73,11 +73,27 @@
         }
         return [fieldQueryParam, queryParams];
     }
-    
+
+    function getTextSafe(text) {
+        /**
+         * Safely retrieves the translated text using gettext if available.
+         * Django doesn't always load the admin:jsi18n URL, for instance, when
+         * has_delete_permission is set to false. In these cases, the gettext
+         * function may be unavailable.
+         * Reference: https://github.com/django/django/blob/main/django/contrib/admin/templates/admin/change_list.html#L10-L12
+         *
+        */
+        if (typeof gettext !== 'undefined') {
+            return gettext(text);
+        } else {
+            return text;
+        }
+    }
+
     $(document).ready(function() {
         $('.django-admin-list-filter').select2({
             allowClear: true,
-            placeholder: gettext("Filter")
+            placeholder: getTextSafe("Filter")
         }).on("select2:select", function(e){
             var navURL = new URL(window.location.href);
             let [fieldQueryParam, queryParams] = getQueryParams(e, $(this).data("isChoicesFilter"));
