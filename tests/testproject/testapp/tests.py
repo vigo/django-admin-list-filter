@@ -3,15 +3,16 @@ import re
 from http import HTTPStatus
 
 import pytest
-from dalf.admin import DALFChoicesField, DALFRelatedField, DALFRelatedFieldAjax, DALFRelatedOnlyField
 from django.urls import reverse
+
+from dalf.admin import DALFChoicesField, DALFRelatedField, DALFRelatedFieldAjax, DALFRelatedOnlyField
 
 from .models import Post
 
 csrf_token_pattern = re.compile(r'name="csrfmiddlewaretoken" value="([^"]+)"')
 
 
-@pytest.mark.django_db()
+@pytest.mark.django_db
 def test_post_admin_filters_basics(admin_client, posts):  # noqa: ARG001
     posts_count = 10
     post_authors = set(Post.objects.values_list('author__username', flat=True))

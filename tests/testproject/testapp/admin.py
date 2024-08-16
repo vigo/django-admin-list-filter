@@ -1,3 +1,5 @@
+from django.contrib import admin
+
 from dalf.admin import (
     DALFChoicesField,
     DALFModelAdmin,
@@ -5,7 +7,6 @@ from dalf.admin import (
     DALFRelatedFieldAjax,
     DALFRelatedOnlyField,
 )
-from django.contrib import admin
 
 from .models import Category, Post, Tag
 

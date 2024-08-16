@@ -7,6 +7,6 @@ register(TagFactory)
 register(PostFactory)
 
 
-@pytest.fixture()
+@pytest.fixture
 def posts():
     return PostFactory.create_batch(10)
