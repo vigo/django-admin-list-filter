@@ -1,5 +1,11 @@
 # Change Log
 
+**2024-08-16**
+
+- Add `gettextSafe` function to handle missing gettext in Django
+
+---
+
 **2024-07-14**
 
 - Fix choice.display last element issue
