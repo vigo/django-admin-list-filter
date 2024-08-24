@@ -20,7 +20,7 @@ class DALFModelAdmin(admin.ModelAdmin):
     def media(self):
         i18n_name = get_select2_language()
         i18n_file = (f'admin/js/vendor/select2/i18n/{i18n_name}.js',) if i18n_name else ()
-        return forms.Media(
+        return super().media + forms.Media(
             js=(
                 'admin/js/vendor/jquery/jquery.min.js',
                 'admin/js/vendor/select2/select2.full.min.js',
