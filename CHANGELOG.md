@@ -1,8 +1,14 @@
 # Change Log
 
+**2024-08-25**
+
+- Fix extend media in DALFModelAdmin without overriding default assets - [Bahattin][bahattincinic]
+
+---
+
 **2024-08-16**
 
-- Add `gettextSafe` function to handle missing gettext in Django
+- Add `gettextSafe` function to handle missing gettext in Django - [Bahattin][bahattincinic]
 
 ---
 
