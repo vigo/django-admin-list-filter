@@ -279,9 +279,11 @@ rake upload:test     # Upload package to test distro
 
 - Fix dark-mode text color.
 
+---
+
 **2024-08-25**
 
-- Fix extend media in DALFModelAdmin without overriding default assets - [Bahattin][bahattincinic]
+- Fix extend media in `DALFModelAdmin` without overriding default assets - [Bahattin][bahattincinic]
 
 ---
 

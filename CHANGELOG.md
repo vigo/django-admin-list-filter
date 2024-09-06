@@ -1,5 +1,11 @@
 # Change Log
 
+**2024-09-06**
+
+- Fix dark-mode text color.
+
+---
+
 **2024-08-25**
 
 - Fix extend media in DALFModelAdmin without overriding default assets - [Bahattin][bahattincinic]
