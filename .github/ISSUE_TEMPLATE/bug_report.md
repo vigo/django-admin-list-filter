@@ -1,10 +1,11 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: "[BUG]"
+title: "[BUG] "
 labels: bug
-assignees: vigo
-
+assignees:
+    - vigo
+    - bahattincinic
 ---
 
 ## Describe the bug
