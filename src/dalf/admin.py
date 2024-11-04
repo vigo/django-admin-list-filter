@@ -31,6 +31,7 @@ class DALFModelAdmin(admin.ModelAdmin):
             css={
                 'screen': (
                     'admin/css/vendor/select2/select2.min.css',
+                    'admin/css/autocomplete.css',
                     'admin/css/django_admin_list_filter.css',
                 ),
             },
