@@ -41,8 +41,8 @@ def test_post_admin_filters_basics(admin_client, posts):  # noqa: ARG001
 
             if option_field_name in ['author', 'audience']:
                 assert (
-                    f'<select class="django-admin-list-filter" name="{option_field_name}" '
-                    f'data-is-choices-filter="{option_is_choices_filter}">'
+                    f'<select class="django-admin-list-filter admin-autocomplete" name="{option_field_name}" '
+                    f'data-is-choices-filter="{option_is_choices_filter}" data-theme="admin-autocomplete">'
                 ) in content
 
             if option_field_name == 'author':
