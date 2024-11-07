@@ -224,6 +224,7 @@ That’s it!
 * [Uğur Özyılmazel](https://github.com/vigo) - Creator, maintainer
 * [Ehco](https://github.com/Ehco1996) - Contributor
 * [Bahattin Çiniç][bahattincinic] - Bug Report!
+* [Nguyễn Hồng Quân](https://github.com/hongquan) - Contributor
 
 ---
 
@@ -274,6 +275,10 @@ rake upload:test     # Upload package to test distro
 ---
 
 ## Change Log
+
+**2024-11-07**
+
+- Fix dark-mode ajax autocompletion colors - [Nguyễn Hồng Quân](https://github.com/hongquan)
 
 **2024-09-06**
 
