@@ -31,5 +31,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
           pip install ruff
-      - name: Run Ruff
+          echo "RUFF_VERSION=$(ruff --version)" >> "${GITHUB_ENV}"
+
+      - name: Runing Ruff ${{ env.RUFF_VERSION }}
         run: ruff check --output-format=github .
