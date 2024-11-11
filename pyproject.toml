@@ -9,11 +9,17 @@ readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.11"
 classifiers = [
-    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Framework :: Django :: 5.0",
+    "Framework :: Django :: 5.1",
+    "Intended Audience :: Developers",
     "Development Status :: 3 - Alpha",
+    "Natural Language :: English",
 ]
 keywords = ["django", "django admin", "list filter"]
 
@@ -23,4 +29,5 @@ dev = ["Django", "pytest", "pytest-django", "pytest-factoryboy", "pytest-cov"]
 
 [project.urls]
 Homepage = "https://github.com/vigo/django-admin-list-filter"
+Repository = "https://github.com/vigo/django-admin-list-filter"
 Issues = "https://github.com/vigo/django-admin-list-filter/issues"
