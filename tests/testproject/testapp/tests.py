@@ -1,5 +1,6 @@
 # ruff: noqa: S101
 import re
+from html.parser import HTMLParser
 from http import HTTPStatus
 
 import pytest
@@ -10,6 +11,33 @@ from dalf.admin import DALFChoicesField, DALFRelatedField, DALFRelatedFieldAjax,
 from .models import Post
 
 csrf_token_pattern = re.compile(r'name="csrfmiddlewaretoken" value="([^"]+)"')
+
+
+class MatchingTagValidator(HTMLParser):
+    """Assert that a tag matching the given spec is found in the document.
+
+    Instances of this class are not reusable. Create a new one for every ``check`` call.
+    """
+
+    def __init__(self, expected_attrs, matcher_attrs, tag):
+        super().__init__()
+        self.expected_attrs = expected_attrs
+        self.matcher_attrs = matcher_attrs
+        self.target_tag = tag
+        self.seen_target_tag = False
+
+    def check(self, content):
+        self.feed(content)
+        assert self.seen_target_tag
+
+    def handle_starttag(self, tag, attrs):
+        if tag != self.target_tag:
+            return
+        attrs = dict(attrs)
+        if self.matcher_attrs.items() <= attrs.items():
+            assert not self.seen_target_tag, 'Multiple matching tags found'
+            self.seen_target_tag = True
+            assert self.expected_attrs.items() <= attrs.items()
 
 
 @pytest.mark.django_db
@@ -40,10 +68,19 @@ def test_post_admin_filters_basics(admin_client, posts):  # noqa: ARG001
             option_is_choices_filter = filter_custom_options.get('is_choices_filter', None)
 
             if option_field_name in ['author', 'audience']:
-                assert (
-                    f'<select class="django-admin-list-filter admin-autocomplete" name="{option_field_name}" '
-                    f'data-is-choices-filter="{option_is_choices_filter}" data-theme="admin-autocomplete">'
-                ) in content
+                maybe_id_suffix = '__id' if option_field_name == 'author' else ''
+                validator = MatchingTagValidator(
+                    {
+                        'class': 'django-admin-list-filter admin-autocomplete',
+                        'name': option_field_name,
+                        'data-is-choices-filter': option_is_choices_filter,
+                        'data-lookup-kwarg': f'{option_field_name}{maybe_id_suffix}__exact',
+                        'data-theme': 'admin-autocomplete',
+                    },
+                    {'name': option_field_name},
+                    'select',
+                )
+                validator.check(content)
 
             if option_field_name == 'author':
                 assert option_is_choices_filter == 'false'

@@ -7,7 +7,13 @@
         <ul>
             <li>
                 {% with params=choices|last %}
-                    <select class="django-admin-list-filter admin-autocomplete" name="{{ params.field_name }}" data-is-choices-filter="{{ params.is_choices_filter }}" data-theme="admin-autocomplete">
+                    <select
+                        class="django-admin-list-filter admin-autocomplete"
+                        name="{{ params.field_name }}"
+                        data-lookup-kwarg="{{ params.lookup_kwarg }}"
+                        data-is-choices-filter="{{ params.is_choices_filter }}"
+                        data-theme="admin-autocomplete"
+                    >
                     {% for choice in choices %}
                         {% if choice.display %}<option value="{{ choice.query_string|iriencode }}"{% if choice.selected %} selected{% endif %}>{{ choice.display }}</option>{% endif %}
                     {% endfor %}

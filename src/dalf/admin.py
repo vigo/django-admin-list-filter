@@ -7,11 +7,11 @@ from django.contrib.admin.widgets import get_select2_language
 from django.urls import reverse
 
 __all__ = [
+    'DALFChoicesField',
     'DALFModelAdmin',
     'DALFRelatedField',
-    'DALFRelatedOnlyField',
-    'DALFChoicesField',
     'DALFRelatedFieldAjax',
+    'DALFRelatedOnlyField',
 ]
 
 
@@ -48,6 +48,7 @@ class DALFMixin:
             'model_name': model._meta.model_name,
             'field_name': field_path,
             'is_choices_filter': json.dumps(obj=False),
+            'lookup_kwarg': self.lookup_kwarg,
         }
 
     def choices(self, changelist):
@@ -83,6 +84,7 @@ class DALFRelatedFieldAjax(admin.RelatedFieldListFilter):
             'model_name': model._meta.model_name,
             'field_name': field_path,
             'ajax_url': reverse('admin:autocomplete'),
+            'lookup_kwarg': self.lookup_kwarg,
         }
         selected_value = originial_params.get(self.lookup_kwarg, [])
         self.selected_value = selected_value[0] if selected_value else None
