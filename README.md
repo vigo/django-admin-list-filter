@@ -223,8 +223,9 @@ That’s it!
 
 * [Uğur Özyılmazel](https://github.com/vigo) - Creator, maintainer
 * [Ehco](https://github.com/Ehco1996) - Contributor
-* [Bahattin Çiniç][bahattincinic] - Bug Report!
+* [Bahattin Çiniç][bahattincinic] - Contributor
 * [Nguyễn Hồng Quân](https://github.com/hongquan) - Contributor
+* [Stanislav Terliakov](https://github.com/sterliakov) - Contributor
 
 ---
 
@@ -275,6 +276,10 @@ rake upload:test     # Upload package to test distro
 ---
 
 ## Change Log
+
+**2025-03-14**
+
+- Fix ForeignKey relation to `__id` issue. [Stanislav Terliakov](https://github.com/sterliakov)
 
 **2024-11-07**
 
