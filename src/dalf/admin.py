@@ -1,5 +1,4 @@
 # ruff: noqa: PLR0913,ARG002,SLF001
-import json
 
 from django import forms
 from django.contrib import admin
@@ -7,11 +6,11 @@ from django.contrib.admin.widgets import get_select2_language
 from django.urls import reverse
 
 __all__ = [
+    'DALFChoicesField',
     'DALFModelAdmin',
     'DALFRelatedField',
-    'DALFRelatedOnlyField',
-    'DALFChoicesField',
     'DALFRelatedFieldAjax',
+    'DALFRelatedOnlyField',
 ]
 
 
@@ -47,7 +46,7 @@ class DALFMixin:
             'app_label': model._meta.app_label,
             'model_name': model._meta.model_name,
             'field_name': field_path,
-            'is_choices_filter': json.dumps(obj=False),
+            'lookup_kwarg': self.lookup_kwarg,
         }
 
     def choices(self, changelist):
@@ -66,9 +65,7 @@ class DALFRelatedOnlyField(DALFMixin, admin.RelatedOnlyFieldListFilter):
 
 
 class DALFChoicesField(DALFMixin, admin.ChoicesFieldListFilter):
-    def __init__(self, field, request, params, model, model_admin, field_path):
-        super().__init__(field, request, params, model, model_admin, field_path)
-        self.custom_template_params.update({'is_choices_filter': json.dumps(obj=True)})
+    pass
 
 
 class DALFRelatedFieldAjax(admin.RelatedFieldListFilter):
@@ -83,6 +80,7 @@ class DALFRelatedFieldAjax(admin.RelatedFieldListFilter):
             'model_name': model._meta.model_name,
             'field_name': field_path,
             'ajax_url': reverse('admin:autocomplete'),
+            'lookup_kwarg': self.lookup_kwarg,
         }
         selected_value = originial_params.get(self.lookup_kwarg, [])
         self.selected_value = selected_value[0] if selected_value else None

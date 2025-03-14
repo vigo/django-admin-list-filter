@@ -10,3 +10,7 @@ register(PostFactory)
 @pytest.fixture
 def posts():
     return PostFactory.create_batch(10)
+
+@pytest.fixture
+def unused_tag():
+    return TagFactory(name='Unused')

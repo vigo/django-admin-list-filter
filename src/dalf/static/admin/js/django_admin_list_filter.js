@@ -8,8 +8,9 @@
             const appLabel = element.dataset.appLabel;
             const modelName = element.dataset.modelName;
             const fieldName = element.dataset.fieldName;
+            const lookupKwarg = element.dataset.lookupKwarg;
             const selectedValue = $(element).prev('.djal-selected-value').val();
-            
+
             $(element).select2({
                 ajax: {
                     data: (params) => {
@@ -25,17 +26,15 @@
             }).on('select2:select', function(e){
                var data = e.params.data;
                var navURL = new URL(window.location.href);
-               var queryParam = fieldName + "__id__exact";
 
-               navURL.searchParams.set(queryParam, decodeURIComponent(data.id));
+               navURL.searchParams.set(lookupKwarg, decodeURIComponent(data.id));
                window.location.href = navURL.href;
             }).on("select2:unselect", function(e){
                 var navURL = new URL(window.location.href);
-                var queryParam = fieldName + "__id__exact";
-                navURL.searchParams.delete(queryParam);
+                navURL.searchParams.delete(lookupKwarg);
                 window.location.href = navURL.href;
             });
-            
+
             if (selectedValue){
                 $.ajax({
                     url: ajaxURL,
@@ -57,14 +56,13 @@
                     }
                 });
             }
-            
+
         });
         return this;
     };
-    
-    function getQueryParams(e, isChoicesFilter) {
-        var fieldName = e.target.name;
-        var fieldQueryParam = isChoicesFilter ? `${fieldName}__exact` : `${fieldName}__id__exact`;
+
+    function getQueryParams(e) {
+        var fieldQueryParam = $(e.target).data('lookupKwarg');
         var data = e.params.data;
         var selected = data.id.replace(/\?/, "");
         var queryParams = selected.split("&");
@@ -96,7 +94,7 @@
             placeholder: getTextSafe("Filter")
         }).on("select2:select", function(e){
             var navURL = new URL(window.location.href);
-            let [fieldQueryParam, queryParams] = getQueryParams(e, $(this).data("isChoicesFilter"));
+            let [fieldQueryParam, queryParams] = getQueryParams(e);
             var isAllorEmptyChoice = true;
 
             queryParams.forEach(function(item){
@@ -113,7 +111,7 @@
 
         }).on("select2:unselect", function(e){
             var navURL = new URL(window.location.href);
-            let [fieldQueryParam, queryParams] = getQueryParams(e, $(this).data("isChoicesFilter"));
+            let [fieldQueryParam, queryParams] = getQueryParams(e);
 
             queryParams.forEach(function(item){
                 var [field, value] = item.split("=");

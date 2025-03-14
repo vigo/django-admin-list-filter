@@ -1,8 +1,18 @@
+import uuid
+
 from django.conf import settings
 from django.db import models
 
 
 class Category(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
+class CategoryRenamed(models.Model):
+    renamed_id = models.UUIDField(default=uuid.uuid4, primary_key=True)
     name = models.CharField(max_length=255)
 
     def __str__(self):
@@ -30,6 +40,11 @@ class Post(models.Model):
     )
     category = models.ForeignKey(
         to='Category',
+        on_delete=models.CASCADE,
+        related_name='posts',
+    )
+    category_renamed = models.ForeignKey(
+        to='CategoryRenamed',
         on_delete=models.CASCADE,
         related_name='posts',
     )
