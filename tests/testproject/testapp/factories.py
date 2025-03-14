@@ -2,7 +2,7 @@ import factory
 from django.contrib.auth import get_user_model
 from factory import fuzzy
 
-from .models import AudienceChoices, Category, Post, Tag
+from .models import AudienceChoices, Category, CategoryRenamed, Post, Tag
 
 FAKE_USERNAMES = [
     'vigo',
@@ -47,6 +47,14 @@ class CategoryFactory(factory.django.DjangoModelFactory):
     name = factory.Iterator(FAKE_CATEGORIES)
 
 
+class CategoryRenamedFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = CategoryRenamed
+        django_get_or_create = ('name',)
+
+    name = factory.Iterator(FAKE_CATEGORIES)
+
+
 class TagFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Tag
@@ -62,6 +70,7 @@ class PostFactory(factory.django.DjangoModelFactory):
 
     author = factory.SubFactory(UserFactory)
     category = factory.SubFactory(CategoryFactory)
+    category_renamed = factory.SubFactory(CategoryRenamedFactory)
     title = factory.Sequence(lambda n: f'Book about {FAKE_CATEGORIES[n % len(FAKE_CATEGORIES)]} - {n}')
     audience = fuzzy.FuzzyChoice(AudienceChoices.choices, getter=lambda c: c[0])
 
