@@ -1,5 +1,4 @@
 # ruff: noqa: PLR0913,ARG002,SLF001
-import json
 
 from django import forms
 from django.contrib import admin
@@ -47,7 +46,6 @@ class DALFMixin:
             'app_label': model._meta.app_label,
             'model_name': model._meta.model_name,
             'field_name': field_path,
-            'is_choices_filter': json.dumps(obj=False),
             'lookup_kwarg': self.lookup_kwarg,
         }
 
@@ -67,9 +65,7 @@ class DALFRelatedOnlyField(DALFMixin, admin.RelatedOnlyFieldListFilter):
 
 
 class DALFChoicesField(DALFMixin, admin.ChoicesFieldListFilter):
-    def __init__(self, field, request, params, model, model_admin, field_path):
-        super().__init__(field, request, params, model, model_admin, field_path)
-        self.custom_template_params.update({'is_choices_filter': json.dumps(obj=True)})
+    pass
 
 
 class DALFRelatedFieldAjax(admin.RelatedFieldListFilter):

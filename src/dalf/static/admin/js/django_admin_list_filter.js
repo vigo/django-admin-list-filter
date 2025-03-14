@@ -61,7 +61,7 @@
         return this;
     };
 
-    function getQueryParams(e, isChoicesFilter) {
+    function getQueryParams(e) {
         var fieldQueryParam = $(e.target).data('lookupKwarg');
         var data = e.params.data;
         var selected = data.id.replace(/\?/, "");
@@ -94,7 +94,7 @@
             placeholder: getTextSafe("Filter")
         }).on("select2:select", function(e){
             var navURL = new URL(window.location.href);
-            let [fieldQueryParam, queryParams] = getQueryParams(e, $(this).data("isChoicesFilter"));
+            let [fieldQueryParam, queryParams] = getQueryParams(e);
             var isAllorEmptyChoice = true;
 
             queryParams.forEach(function(item){
@@ -111,7 +111,7 @@
 
         }).on("select2:unselect", function(e){
             var navURL = new URL(window.location.href);
-            let [fieldQueryParam, queryParams] = getQueryParams(e, $(this).data("isChoicesFilter"));
+            let [fieldQueryParam, queryParams] = getQueryParams(e);
 
             queryParams.forEach(function(item){
                 var [field, value] = item.split("=");
