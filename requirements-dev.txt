@@ -1,6 +1,6 @@
-Django==5.0.6
-pytest==8.2.1
-pytest-cov==5.0.0
-pytest-django==4.8.0
-pytest-factoryboy==2.7.0
+Django==5.2.7
+pytest==8.4.2
+pytest-cov==7.0.0
+pytest-django==4.11.1
+pytest-factoryboy==2.8.1
 ruff==0.13.3
