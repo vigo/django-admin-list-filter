@@ -8,7 +8,7 @@ from django.urls import reverse
 
 from dalf.admin import DALFChoicesField, DALFRelatedField, DALFRelatedFieldAjax, DALFRelatedOnlyField
 
-from .models import Post, Tag
+from .models import Post, Supplier, Tag
 
 csrf_token_pattern = re.compile(r'name="csrfmiddlewaretoken" value="([^"]+)"')
 
@@ -161,3 +161,39 @@ def test_post_admin_filters_basics(admin_client, unused_tag):
     )
     validator.feed(content)
     assert not validator.seen_target_tag
+
+
+@pytest.mark.django_db
+@pytest.mark.usefixtures('orders')
+def test_order_admin_nested_ajax_filter(admin_client):
+    response = admin_client.get(reverse('admin:testapp_order_changelist'))
+    assert response.status_code == HTTPStatus.OK
+
+    changelist = response.context['cl']
+    filter_specs = changelist.filter_specs
+
+    ajax_specs = [spec for spec in filter_specs if isinstance(spec, DALFRelatedFieldAjax)]
+    assert ajax_specs, 'Expected at least one DALFRelatedFieldAjax filter'
+
+    ajax_spec = ajax_specs[0]
+    filter_choices = list(ajax_spec.choices(changelist))
+    custom_params = filter_choices.pop()
+
+    assert custom_params['field_name'] == 'supplier'
+    assert custom_params['lookup_kwarg'] == 'item__product__supplier__id__exact'
+    assert custom_params['model_name'] == 'product'
+    assert custom_params['app_label'] == 'testapp'
+
+    url_params = '&'.join(
+        [f'{key}={value}' for key, value in custom_params.items() if key != 'selected_value']
+    )
+    url_params += '&term=Northwind'
+
+    ajax_response = admin_client.get(f'/admin/autocomplete/?{url_params}')
+    assert ajax_response.status_code == HTTPStatus.OK
+    assert ajax_response['Content-Type'] == 'application/json'
+
+    results = ajax_response.json().get('results')
+    assert results
+    supplier_names = set(Supplier.objects.values_list('name', flat=True))
+    assert any(result['text'] in supplier_names for result in results)

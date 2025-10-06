@@ -2,7 +2,17 @@ import factory
 from django.contrib.auth import get_user_model
 from factory import fuzzy
 
-from .models import AudienceChoices, Category, CategoryRenamed, Post, Tag
+from .models import (
+    AudienceChoices,
+    Category,
+    CategoryRenamed,
+    Item,
+    Order,
+    Post,
+    Product,
+    Supplier,
+    Tag,
+)
 
 FAKE_USERNAMES = [
     'vigo',
@@ -26,6 +36,13 @@ FAKE_TAGS = [
     'linux',
     'macos',
     'stdlib',
+]
+
+FAKE_SUPPLIERS = [
+    'Northwind Traders',
+    'Contoso',
+    'Adventure Works',
+    'Globex',
 ]
 
 
@@ -84,3 +101,35 @@ class PostFactory(factory.django.DjangoModelFactory):
         else:
             tags = TagFactory.create_batch(len(FAKE_TAGS))
             self.tags.add(*tags)
+
+
+class SupplierFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Supplier
+        django_get_or_create = ('name',)
+
+    name = factory.Iterator(FAKE_SUPPLIERS)
+
+
+class ProductFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Product
+
+    name = factory.Sequence(lambda n: f'Product {n}')
+    supplier = factory.SubFactory(SupplierFactory)
+
+
+class ItemFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Item
+
+    name = factory.Sequence(lambda n: f'Item {n}')
+    product = factory.SubFactory(ProductFactory)
+
+
+class OrderFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Order
+
+    reference = factory.Sequence(lambda n: f'Order-{n}')
+    item = factory.SubFactory(ItemFactory)

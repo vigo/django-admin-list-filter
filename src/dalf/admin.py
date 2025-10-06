@@ -75,10 +75,13 @@ class DALFRelatedFieldAjax(admin.RelatedFieldListFilter):
         originial_params = dict(params)
         super().__init__(field, request, params, model, model_admin, field_path)
 
+        source_model = field.model
+        field_name = field_path.split('__')[-1]
+
         self.custom_template_params = {
-            'app_label': model._meta.app_label,
-            'model_name': model._meta.model_name,
-            'field_name': field_path,
+            'app_label': source_model._meta.app_label,
+            'model_name': source_model._meta.model_name,
+            'field_name': field_name,
             'ajax_url': reverse('admin:autocomplete'),
             'lookup_kwarg': self.lookup_kwarg,
         }

@@ -1,7 +1,13 @@
+import os
+
+import django
 import pytest
 from pytest_factoryboy import register
 
-from .factories import PostFactory, TagFactory
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'testproject.settings')
+django.setup()
+
+from .factories import OrderFactory, PostFactory, TagFactory
 
 register(TagFactory)
 register(PostFactory)
@@ -14,3 +20,8 @@ def posts():
 @pytest.fixture
 def unused_tag():
     return TagFactory(name='Unused')
+
+
+@pytest.fixture
+def orders():
+    return OrderFactory.create_batch(3)
