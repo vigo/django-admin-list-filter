@@ -13,7 +13,7 @@ repos:
   - repo: local
     hooks:
       - id: pytest
-        name: pytest
+        name: "Run pytest"
         entry: pytest -s tests/testproject/testapp -c tests/testproject/pytest.ini
         language: system
         pass_filenames: false
