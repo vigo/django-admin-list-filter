@@ -1,5 +1,3 @@
-# ruff: noqa: PLR0913,ARG002,SLF001
-
 from django import forms
 from django.contrib import admin
 from django.contrib.admin.widgets import get_select2_language
@@ -43,8 +41,8 @@ class DALFMixin:
     def __init__(self, field, request, params, model, model_admin, field_path):
         super().__init__(field, request, params, model, model_admin, field_path)
         self.custom_template_params = {
-            'app_label': model._meta.app_label,
-            'model_name': model._meta.model_name,
+            'app_label': model._meta.app_label,  # noqa: SLF001
+            'model_name': model._meta.model_name,  # noqa: SLF001
             'field_name': field_path,
             'lookup_kwarg': self.lookup_kwarg,
         }
@@ -79,8 +77,8 @@ class DALFRelatedFieldAjax(admin.RelatedFieldListFilter):
         field_name = field_path.split('__')[-1]
 
         self.custom_template_params = {
-            'app_label': source_model._meta.app_label,
-            'model_name': source_model._meta.model_name,
+            'app_label': source_model._meta.app_label,  # noqa: SLF001
+            'model_name': source_model._meta.model_name,  # noqa: SLF001
             'field_name': field_name,
             'ajax_url': reverse('admin:autocomplete'),
             'lookup_kwarg': self.lookup_kwarg,
@@ -88,7 +86,7 @@ class DALFRelatedFieldAjax(admin.RelatedFieldListFilter):
         selected_value = originial_params.get(self.lookup_kwarg, [])
         self.selected_value = selected_value[0] if selected_value else None
 
-    def field_choices(self, field, request, model_admin):
+    def field_choices(self, _field, _request, _model_admin):
         return []
 
     def has_output(self):
