@@ -11,7 +11,7 @@
 
 Dead simple autocompletion for Django admin `list_filter`. This was made using
 the libraries shipped with Django (`select2`, `jquery`), Django’s built-in
-list filters, and Django’s built-in `AutocompleteJsonView`.
+list filters.
 
 This package is an **improved** version of the previously created 
 [django-admin-autocomplete-list-filter][1] package. It supports Django **version 5** and 
@@ -276,6 +276,11 @@ rake upload:test     # Upload package to test distro
 ---
 
 ## Change Log
+
+**2025-10-06**
+
+- [Fix nested FK problem](https://github.com/vigo/django-admin-list-filter/issues/7), thanks to
+  [penenkel](https://github.com/penenkel)
 
 **2025-03-14**
 
