@@ -40,8 +40,9 @@ jobs:
           codecov -f coverage.xml
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4.0.1
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+          slug: vigo/django-admin-list-filter
           files: ./coverage.xml
           flags: unittests
