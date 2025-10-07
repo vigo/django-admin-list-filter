@@ -32,7 +32,3 @@ dev = ["Django", "pytest", "pytest-django", "pytest-factoryboy", "pytest-cov"]
 Homepage = "https://github.com/vigo/django-admin-list-filter"
 Repository = "https://github.com/vigo/django-admin-list-filter"
 Issues = "https://github.com/vigo/django-admin-list-filter/issues"
-
-[build-system]
-requires = ["setuptools >= 77.0.3", "build", "twine"]
-build-backend = "setuptools.build_meta"
