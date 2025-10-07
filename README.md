@@ -1,4 +1,4 @@
-![Version](https://img.shields.io/badge/version-0.4.5-orange.svg?style=for-the-badge&logo=semver)
+![Version](https://img.shields.io/badge/version-0.4.6-orange.svg?style=for-the-badge&logo=semver)
 ![Python](https://img.shields.io/badge/python-3.11+-green.svg?style=for-the-badge&logo=python)
 ![Django](https://img.shields.io/badge/django-5.2.7-green.svg?style=for-the-badge&logo=django)
 [![Ruff](https://img.shields.io/endpoint?style=for-the-badge&url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
