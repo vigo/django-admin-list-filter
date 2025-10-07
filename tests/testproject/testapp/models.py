@@ -26,6 +26,37 @@ class Tag(models.Model):
         return self.name
 
 
+class Supplier(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
+class Product(models.Model):
+    name = models.CharField(max_length=255)
+    supplier = models.ForeignKey(
+        to='Supplier',
+        on_delete=models.CASCADE,
+        related_name='products',
+    )
+
+    def __str__(self):
+        return self.name
+
+
+class Item(models.Model):
+    name = models.CharField(max_length=255)
+    product = models.ForeignKey(
+        to='Product',
+        on_delete=models.CASCADE,
+        related_name='items',
+    )
+
+    def __str__(self):
+        return self.name
+
+
 class AudienceChoices(models.TextChoices):
     BEGINNER = 'beginner', 'Beginer'
     INTERMEDIATE = 'intermediate', 'Intermediate'
@@ -59,3 +90,15 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Order(models.Model):
+    reference = models.CharField(max_length=100)
+    item = models.ForeignKey(
+        to='Item',
+        on_delete=models.CASCADE,
+        related_name='orders',
+    )
+
+    def __str__(self):
+        return self.reference

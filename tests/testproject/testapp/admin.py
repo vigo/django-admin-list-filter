@@ -8,7 +8,16 @@ from dalf.admin import (
     DALFRelatedOnlyField,
 )
 
-from .models import Category, CategoryRenamed, Post, Tag
+from .models import (
+    Category,
+    CategoryRenamed,
+    Item,
+    Order,
+    Post,
+    Product,
+    Supplier,
+    Tag,
+)
 
 
 @admin.register(Post)
@@ -39,3 +48,27 @@ class CategoryRenamedAdmin(admin.ModelAdmin):
 class TagAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     ordering = ('name',)
+
+
+@admin.register(Supplier)
+class SupplierAdmin(admin.ModelAdmin):
+    search_fields = ('name',)
+    ordering = ('name',)
+
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    search_fields = ('name', 'supplier__name')
+    ordering = ('name',)
+
+
+@admin.register(Item)
+class ItemAdmin(admin.ModelAdmin):
+    search_fields = ('name', 'product__name')
+    ordering = ('name',)
+
+
+@admin.register(Order)
+class OrderAdmin(DALFModelAdmin):
+    list_display = ('reference',)
+    list_filter = (('item__product__supplier', DALFRelatedFieldAjax),)

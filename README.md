@@ -1,6 +1,6 @@
 ![Version](https://img.shields.io/badge/version-0.3.0-orange.svg?style=for-the-badge&logo=semver)
 ![Python](https://img.shields.io/badge/python-3.11+-green.svg?style=for-the-badge&logo=python)
-![Django](https://img.shields.io/badge/django-5.0.2-green.svg?style=for-the-badge&logo=django)
+![Django](https://img.shields.io/badge/django-5.2.7-green.svg?style=for-the-badge&logo=django)
 [![Ruff](https://img.shields.io/endpoint?style=for-the-badge&url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![PyPI version](https://img.shields.io/pypi/v/dalf.svg?style=for-the-badge&logo=pypi)](https://pypi.org/project/dalf/)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/dalf?style=for-the-badge&logo=pypi)
@@ -11,7 +11,7 @@
 
 Dead simple autocompletion for Django admin `list_filter`. This was made using
 the libraries shipped with Django (`select2`, `jquery`), Django’s built-in
-list filters, and Django’s built-in `AutocompleteJsonView`.
+list filters.
 
 This package is an **improved** version of the previously created 
 [django-admin-autocomplete-list-filter][1] package. It supports Django **version 5** and 
@@ -276,6 +276,11 @@ rake upload:test     # Upload package to test distro
 ---
 
 ## Change Log
+
+**2025-10-06**
+
+- [Fix nested FK problem](https://github.com/vigo/django-admin-list-filter/issues/7), thanks to
+  [penenkel](https://github.com/penenkel)
 
 **2025-03-14**
 

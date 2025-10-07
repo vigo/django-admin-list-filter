@@ -1,12 +1,19 @@
+exclude: tests/
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.11.0
+    rev: v0.13.3
     hooks:
       - id: ruff
+        name: "Run ruff linter checks"
+        entry: ruff
+        language: system
+        types: [python]
+        args: ["check", "."]
+
   - repo: local
     hooks:
       - id: pytest
-        name: pytest
+        name: "Run pytest"
         entry: pytest -s tests/testproject/testapp -c tests/testproject/pytest.ini
         language: system
         pass_filenames: false

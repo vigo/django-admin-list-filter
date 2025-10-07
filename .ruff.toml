@@ -1,5 +1,7 @@
 line-length = 119
-
+exclude = [
+    "tests/**",
+]
 [format]
 quote-style = "single"
 
@@ -19,3 +21,6 @@ select = ["ALL"]
 [lint.flake8-quotes]
 inline-quotes = "single"
 docstring-quotes = "double"
+
+[lint.pylint]
+max-args = 10
