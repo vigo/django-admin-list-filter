@@ -6,7 +6,8 @@ authors = [
 ]
 description = "Dead simple autocompletion for Django admin list_filter with goodies."
 readme = "README.md"
-license = { text = "MIT" }
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
 requires-python = ">=3.11"
 classifiers = [
     "Programming Language :: Python :: 3 :: Only",
@@ -33,5 +34,5 @@ Repository = "https://github.com/vigo/django-admin-list-filter"
 Issues = "https://github.com/vigo/django-admin-list-filter/issues"
 
 [build-system]
-requires = ["setuptools >= 77.0.3"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
