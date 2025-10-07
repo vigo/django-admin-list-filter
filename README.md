@@ -11,7 +11,7 @@
 
 Dead simple autocompletion for Django admin `list_filter`. This was made using
 the libraries shipped with Django (`select2`, `jquery`), Django’s built-in
-list filters.
+list filters and Django’s built-in `AutocompleteJsonView`.
 
 This package is an **improved** version of the previously created 
 [django-admin-autocomplete-list-filter][1] package. It supports Django **version 5** and 
