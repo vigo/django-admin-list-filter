@@ -7,7 +7,7 @@ authors = [
 description = "Dead simple autocompletion for Django admin list_filter with goodies."
 readme = "README.md"
 license = "MIT"
-license-files = ["LICENSE"]
+license-files = ["LICEN[CS]E*"]
 requires-python = ">=3.11"
 classifiers = [
     "Programming Language :: Python :: 3 :: Only",
