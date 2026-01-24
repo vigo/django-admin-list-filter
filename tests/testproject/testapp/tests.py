@@ -197,3 +197,65 @@ def test_order_admin_nested_ajax_filter(admin_client):
     assert results
     supplier_names = set(Supplier.objects.values_list('name', flat=True))
     assert any(result['text'] in supplier_names for result in results)
+
+
+@pytest.mark.django_db
+def test_ajax_filter_repopulation_with_selected_value(admin_client):
+    """Test that selected_text is correctly passed for filter repopulation."""
+    from .factories import CategoryFactory, PostFactory
+
+    category = CategoryFactory(name='SelectedCategory')
+    PostFactory(category=category)
+
+    response = admin_client.get(
+        reverse('admin:testapp_post_changelist'),
+        {'category__id__exact': category.pk},
+    )
+    assert response.status_code == HTTPStatus.OK
+
+    changelist = response.context['cl']
+    filter_specs = changelist.filter_specs
+
+    ajax_specs = [spec for spec in filter_specs if isinstance(spec, DALFRelatedFieldAjax)]
+    category_spec = next((spec for spec in ajax_specs if spec.lookup_kwarg == 'category__id__exact'), None)
+    assert category_spec is not None
+
+    filter_choices = list(category_spec.choices(changelist))
+    custom_params = filter_choices[-1]
+
+    assert custom_params['selected_value'] == str(category.pk)
+    assert custom_params['selected_text'] == 'SelectedCategory'
+
+    content = response.content.decode()
+    assert 'value="SelectedCategory"' in content
+
+
+@pytest.mark.django_db
+def test_ajax_filter_with_deleted_selected_value(admin_client):
+    """Test that deleted selected values are gracefully handled."""
+    from .factories import CategoryFactory, PostFactory
+
+    category = CategoryFactory(name='ToBeDeleted')
+    PostFactory(category=category)
+    deleted_pk = category.pk
+    Post.objects.filter(category=category).delete()
+    category.delete()
+
+    response = admin_client.get(
+        reverse('admin:testapp_post_changelist'),
+        {'category__id__exact': deleted_pk},
+    )
+    assert response.status_code == HTTPStatus.OK
+
+    changelist = response.context['cl']
+    filter_specs = changelist.filter_specs
+
+    ajax_specs = [spec for spec in filter_specs if isinstance(spec, DALFRelatedFieldAjax)]
+    category_spec = next((spec for spec in ajax_specs if spec.lookup_kwarg == 'category__id__exact'), None)
+    assert category_spec is not None
+
+    filter_choices = list(category_spec.choices(changelist))
+    custom_params = filter_choices[-1]
+
+    assert custom_params['selected_value'] == str(deleted_pk)
+    assert custom_params['selected_text'] == str(deleted_pk)

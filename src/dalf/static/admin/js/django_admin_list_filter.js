@@ -4,12 +4,12 @@
 
     $.fn.djangoAdminListFilterSelect2 = function() {
         $.each(this, function(i, element) {
-            const ajaxURL = $(element).data("ajax--url");
             const appLabel = element.dataset.appLabel;
             const modelName = element.dataset.modelName;
             const fieldName = element.dataset.fieldName;
             const lookupKwarg = element.dataset.lookupKwarg;
-            const selectedValue = $(element).prev('.djal-selected-value').val();
+            const selectedValue = $(element).prevAll('.djal-selected-value').first().val();
+            const selectedText = $(element).prevAll('.djal-selected-text').first().val();
 
             $(element).select2({
                 ajax: {
@@ -35,26 +35,9 @@
                 window.location.href = navURL.href;
             });
 
-            if (selectedValue){
-                $.ajax({
-                    url: ajaxURL,
-                    dataType: "json",
-                    data: {
-                        term: "",
-                        app_label: appLabel,
-                        model_name: modelName,
-                        field_name: fieldName
-                    },
-                    success: function(data){
-                        if (data.results.length > 0) {
-                            const selectedItem = data.results.find(item => item.id === selectedValue);
-                            if (selectedItem) {
-                                const selectedOption = new Option(selectedItem.text, selectedItem.id, true, true);
-                                $(element).append(selectedOption).trigger("change");
-                            }
-                        };
-                    }
-                });
+            if (selectedValue && selectedText) {
+                const selectedOption = new Option(selectedText, selectedValue, true, true);
+                $(element).append(selectedOption).trigger("change");
             }
 
         });

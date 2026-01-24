@@ -277,6 +277,11 @@ rake upload:test     # Upload package to test distro
 
 ## Change Log
 
+**2026-01-24**
+
+- Fix [DALFRelatedFieldAjax filter repopulation bug](https://github.com/vigo/django-admin-list-filter/issues/18) -
+  selected values beyond pagination limit now display correctly on page reload
+
 **2025-10-06**
 
 - [Fix nested FK problem](https://github.com/vigo/django-admin-list-filter/issues/7), thanks to

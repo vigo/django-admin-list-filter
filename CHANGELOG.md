@@ -1,5 +1,13 @@
 # Change Log
 
+**2026-01-24**
+
+- Fix `DALFRelatedFieldAjax` filter repopulation bug - selected values beyond first 20 results now display correctly on page reload
+- Add Python 3.14 to CI workflow matrix
+- Upgrade ruff 0.13.3 → 0.14.14
+
+---
+
 **2024-09-06**
 
 - Fix dark-mode text color.
