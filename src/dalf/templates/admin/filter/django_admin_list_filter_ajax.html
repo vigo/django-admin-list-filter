@@ -8,6 +8,7 @@
             <li>
                 {% with params=choices|last %}
                     <input class="djal-selected-value" type="hidden" value="{{ params.selected_value|default_if_none:'' }}" />
+                    <input class="djal-selected-text" type="hidden" value="{{ params.selected_text|default_if_none:'' }}" />
                     <select
                       class="django-admin-list-filter-ajax"
                       data-ajax--cache="true"

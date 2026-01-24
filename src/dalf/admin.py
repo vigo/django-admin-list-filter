@@ -86,6 +86,15 @@ class DALFRelatedFieldAjax(admin.RelatedFieldListFilter):
         selected_value = originial_params.get(self.lookup_kwarg, [])
         self.selected_value = selected_value[0] if selected_value else None
 
+        self.selected_text = None
+        if self.selected_value:
+            try:
+                related_model = field.remote_field.model
+                obj = related_model.objects.get(pk=self.selected_value)
+                self.selected_text = str(obj)
+            except (related_model.DoesNotExist, ValueError):
+                self.selected_value = None
+
     def field_choices(self, _field, _request, _model_admin):
         return []
 
@@ -97,4 +106,5 @@ class DALFRelatedFieldAjax(admin.RelatedFieldListFilter):
         yield {
             **self.custom_template_params,
             'selected_value': self.selected_value,
+            'selected_text': self.selected_text,
         }
