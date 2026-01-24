@@ -93,7 +93,7 @@ class DALFRelatedFieldAjax(admin.RelatedFieldListFilter):
                 obj = related_model.objects.get(pk=self.selected_value)
                 self.selected_text = str(obj)
             except (related_model.DoesNotExist, ValueError):
-                self.selected_value = None
+                self.selected_text = str(self.selected_value)
 
     def field_choices(self, _field, _request, _model_admin):
         return []

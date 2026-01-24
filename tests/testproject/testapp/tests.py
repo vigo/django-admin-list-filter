@@ -257,5 +257,5 @@ def test_ajax_filter_with_deleted_selected_value(admin_client):
     filter_choices = list(category_spec.choices(changelist))
     custom_params = filter_choices[-1]
 
-    assert custom_params['selected_value'] is None
-    assert custom_params['selected_text'] is None
+    assert custom_params['selected_value'] == str(deleted_pk)
+    assert custom_params['selected_text'] == str(deleted_pk)
