@@ -5,6 +5,7 @@ from dalf.admin import (
     DALFModelAdmin,
     DALFRelatedField,
     DALFRelatedFieldAjax,
+    DALFRelatedFieldAjaxMulti,
     DALFRelatedOnlyField,
 )
 
@@ -22,13 +23,14 @@ from .models import (
 
 @admin.register(Post)
 class PostAdmin(DALFModelAdmin):
-    list_display = ('title',)
+    list_display = ('title', 'category', 'author')
     list_filter = (
         ('author', DALFRelatedField),
         ('audience', DALFChoicesField),
         ('category', DALFRelatedFieldAjax),
         ('category_renamed', DALFRelatedFieldAjax),
         ('tags', DALFRelatedOnlyField),
+        ('tags', DALFRelatedFieldAjaxMulti),
     )
 
 

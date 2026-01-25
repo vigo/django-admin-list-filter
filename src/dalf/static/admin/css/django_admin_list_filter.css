@@ -1,6 +1,11 @@
 select.django-admin-list-filter,
-select.django-admin-list-filter-ajax {
+select.django-admin-list-filter-ajax,
+select.django-admin-list-filter-ajax-multi {
     width: 100%;
+}
+
+.django-admin-list-filter-ajax-multi + .select2-container {
+    width: 100% !important;
 }
 
 html[data-theme="dark"] ul.select2-results__options {

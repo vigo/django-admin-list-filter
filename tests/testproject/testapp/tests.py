@@ -6,7 +6,13 @@ from http import HTTPStatus
 import pytest
 from django.urls import reverse
 
-from dalf.admin import DALFChoicesField, DALFRelatedField, DALFRelatedFieldAjax, DALFRelatedOnlyField
+from dalf.admin import (
+    DALFChoicesField,
+    DALFRelatedField,
+    DALFRelatedFieldAjax,
+    DALFRelatedFieldAjaxMulti,
+    DALFRelatedOnlyField,
+)
 
 from .models import Post, Supplier, Tag
 
@@ -259,3 +265,96 @@ def test_ajax_filter_with_deleted_selected_value(admin_client):
 
     assert custom_params['selected_value'] == str(deleted_pk)
     assert custom_params['selected_text'] == str(deleted_pk)
+
+
+@pytest.mark.django_db
+def test_ajax_multi_filter_with_multiple_values(admin_client):
+    """Test multi-select filter filters correctly with multiple values."""
+    from .factories import PostFactory, TagFactory
+
+    tag1 = TagFactory(name='MultiTag1')
+    tag2 = TagFactory(name='MultiTag2')
+    tag3 = TagFactory(name='MultiTag3')
+
+    post1 = PostFactory(title='Post with Tag1')
+    post1.tags.set([tag1])
+    post2 = PostFactory(title='Post with Tag2')
+    post2.tags.set([tag2])
+    post3 = PostFactory(title='Post with Tag3')
+    post3.tags.set([tag3])
+
+    response = admin_client.get(
+        reverse('admin:testapp_post_changelist'),
+        {'tags__in': f'{tag1.pk},{tag2.pk}'},
+    )
+    assert response.status_code == HTTPStatus.OK
+
+    results = response.context['cl'].queryset
+    assert results.count() == 2
+    assert post1 in results
+    assert post2 in results
+    assert post3 not in results
+
+
+@pytest.mark.django_db
+def test_ajax_multi_filter_repopulation(admin_client):
+    """Test that multiple selected values repopulate correctly on page reload."""
+    from .factories import PostFactory, TagFactory
+
+    tag1 = TagFactory(name='RepopTag1')
+    tag2 = TagFactory(name='RepopTag2')
+    post = PostFactory(title='Post for repop test')
+    post.tags.set([tag1, tag2])
+
+    response = admin_client.get(
+        reverse('admin:testapp_post_changelist'),
+        {'tags__in': f'{tag1.pk},{tag2.pk}'},
+    )
+    assert response.status_code == HTTPStatus.OK
+
+    changelist = response.context['cl']
+    filter_specs = changelist.filter_specs
+
+    multi_specs = [spec for spec in filter_specs if isinstance(spec, DALFRelatedFieldAjaxMulti)]
+    assert multi_specs, 'Expected at least one DALFRelatedFieldAjaxMulti filter'
+
+    tags_spec = multi_specs[0]
+    assert len(tags_spec.selected_items) == 2
+
+    selected_texts = [item['text'] for item in tags_spec.selected_items]
+    assert 'RepopTag1' in selected_texts
+    assert 'RepopTag2' in selected_texts
+
+
+@pytest.mark.django_db
+def test_ajax_multi_filter_with_deleted_value(admin_client):
+    """Test graceful handling when one of the selected values is deleted."""
+    from .factories import PostFactory, TagFactory
+
+    tag1 = TagFactory(name='KeepTag')
+    tag2 = TagFactory(name='DeleteTag')
+    post = PostFactory(title='Post for delete test')
+    post.tags.set([tag1])
+
+    deleted_pk = tag2.pk
+    tag2.delete()
+
+    response = admin_client.get(
+        reverse('admin:testapp_post_changelist'),
+        {'tags__in': f'{tag1.pk},{deleted_pk}'},
+    )
+    assert response.status_code == HTTPStatus.OK
+
+    changelist = response.context['cl']
+    filter_specs = changelist.filter_specs
+
+    multi_specs = [spec for spec in filter_specs if isinstance(spec, DALFRelatedFieldAjaxMulti)]
+    tags_spec = multi_specs[0]
+
+    assert len(tags_spec.selected_items) == 2
+    selected_ids = [item['id'] for item in tags_spec.selected_items]
+    assert str(tag1.pk) in selected_ids
+    assert str(deleted_pk) in selected_ids
+
+    deleted_item = next(item for item in tags_spec.selected_items if item['id'] == str(deleted_pk))
+    assert deleted_item['text'] == str(deleted_pk)
