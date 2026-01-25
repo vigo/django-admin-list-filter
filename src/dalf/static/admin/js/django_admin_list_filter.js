@@ -12,6 +12,7 @@
             const selectedText = $(element).prevAll('.djal-selected-text').first().val();
 
             $(element).select2({
+                width: '100%',
                 ajax: {
                     data: (params) => {
                         return {
@@ -38,6 +39,55 @@
             if (selectedValue && selectedText) {
                 const selectedOption = new Option(selectedText, selectedValue, true, true);
                 $(element).append(selectedOption).trigger("change");
+            }
+
+        });
+        return this;
+    };
+
+    $.fn.djangoAdminListFilterSelect2Multi = function() {
+        $.each(this, function(i, element) {
+            const appLabel = element.dataset.appLabel;
+            const modelName = element.dataset.modelName;
+            const fieldName = element.dataset.fieldName;
+            const lookupKwarg = element.dataset.lookupKwarg;
+
+            const selectedItemsJson = $(element).prevAll('.djal-selected-items').first().val();
+            const selectedItems = selectedItemsJson ? JSON.parse(selectedItemsJson) : [];
+
+            $(element).select2({
+                multiple: true,
+                allowClear: true,
+                width: '100%',
+                ajax: {
+                    data: (params) => {
+                        return {
+                            term: params.term,
+                            page: params.page,
+                            app_label: appLabel,
+                            model_name: modelName,
+                            field_name: fieldName
+                        };
+                    }
+                }
+            }).on('change', function() {
+                var selected = $(this).val() || [];
+                var navURL = new URL(window.location.href);
+
+                if (selected.length > 0) {
+                    navURL.searchParams.set(lookupKwarg, selected.join(','));
+                } else {
+                    navURL.searchParams.delete(lookupKwarg);
+                }
+                window.location.href = navURL.href;
+            });
+
+            selectedItems.forEach(function(item) {
+                var option = new Option(item.text, item.id, true, true);
+                $(element).append(option);
+            });
+            if (selectedItems.length > 0) {
+                $(element).trigger('change.select2');
             }
 
         });
@@ -73,8 +123,6 @@
 
     $(document).ready(function() {
         $('.django-admin-list-filter').select2({
-            allowClear: true,
-            placeholder: getTextSafe("Filter")
         }).on("select2:select", function(e){
             var navURL = new URL(window.location.href);
             let [fieldQueryParam, queryParams] = getQueryParams(e);
@@ -107,5 +155,6 @@
         });
 
         $('.django-admin-list-filter-ajax').djangoAdminListFilterSelect2();
+        $('.django-admin-list-filter-ajax-multi').djangoAdminListFilterSelect2Multi();
     });
 }

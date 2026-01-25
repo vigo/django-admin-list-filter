@@ -1,6 +1,33 @@
-select.django-admin-list-filter,
-select.django-admin-list-filter-ajax {
-    width: 100%;
+nav#changelist-filter {
+    .select2-selection__clear {
+        margin-top: 8px;
+        border: 1px solid #999;
+        border-radius: 4px;
+        line-height: 8px;
+        font-size: 8px;
+        padding: 1.5px 3px 2.2px;
+        font-weight: normal !important;
+        &:hover {
+            background-color: #eee;
+        }
+        
+        html[data-theme="dark"] & {
+            &:hover { background-color: #444; }
+        }
+        
+    }
+    .select2-selection__choice {
+        padding: 0 6px !important;
+    }
+}
+
+.django-admin-list-filter-ajax-multi + .select2-container .select2-selection--multiple .select2-selection__rendered {
+    padding: 0 9px !important;
+}
+
+.django-admin-list-filter-ajax-multi + .select2-container .select2-selection--multiple .select2-selection__choice {
+    margin-right: 4px !important;
+    margin-bottom: 4px !important;
 }
 
 html[data-theme="dark"] ul.select2-results__options {

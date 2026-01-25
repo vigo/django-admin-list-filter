@@ -1,0 +1,29 @@
+{% load i18n %}
+<details data-filter-title="{{ title }}" open>
+    <summary>
+        {% blocktranslate with filter_title=title %} By {{ filter_title }} {% endblocktranslate %}
+    </summary>
+    <form method="get">
+        <ul>
+            <li>
+                {% with params=choices|last %}
+                    <input class="djal-selected-items" type="hidden" value='{{ params.selected_items_json }}' />
+                    <select
+                      class="django-admin-list-filter-ajax-multi"
+                      multiple="multiple"
+                      data-ajax--cache="true"
+                      data-ajax--delay="250"
+                      data-ajax--type="GET"
+                      data-ajax--url="{{ params.ajax_url }}"
+                      data-placeholder="{{ _('All') }}"
+                      data-allow-clear="true"
+                      data-app-label="{{ params.app_label }}"
+                      data-model-name="{{ params.model_name }}"
+                      data-lookup-kwarg="{{ params.lookup_kwarg }}"
+                      data-theme="admin-autocomplete"
+                      data-field-name="{{ params.field_name }}"></select>
+                {% endwith %}
+              </li>
+          </ul>
+      </form>
+</details>

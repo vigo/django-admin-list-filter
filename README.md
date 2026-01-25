@@ -1,6 +1,6 @@
 ![Version](https://img.shields.io/badge/version-0.6.0-orange.svg?style=for-the-badge&logo=semver)
-![Python](https://img.shields.io/badge/python-3.11+-green.svg?style=for-the-badge&logo=python)
-![Django](https://img.shields.io/badge/django-5.2.7-green.svg?style=for-the-badge&logo=django)
+![Python](https://img.shields.io/badge/python-3.11%20|%203.12%20|%203.13%20|%203.14-green.svg?style=for-the-badge&logo=python)
+![Django](https://img.shields.io/badge/django-5.2.8%20|%205.2.9%20|%205.2.10%20|%206.0-green.svg?style=for-the-badge&logo=django)
 [![Ruff](https://img.shields.io/endpoint?style=for-the-badge&url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![PyPI version](https://img.shields.io/pypi/v/dalf.svg?style=for-the-badge&logo=pypi)](https://pypi.org/project/dalf/)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/dalf?style=for-the-badge&logo=pypi)
@@ -28,16 +28,6 @@ Before **Django Admin List Filter**
 After **Django Admin List Filter**
 
 ![After Django Admin List Filter](screens/after-dalf.gif?1)
-
----
-
-## 2024-07-03
-
-Thanks to my dear friend [Bahattin Çiniç][bahattincinic]’s warning, He realized
-that the necessary HTML, CSS, and JavaScript files were missing from the
-published package! I quickly fixed this and published a new version. The `0.1.0`
-version is a faulty version. I apologize to the users for this confusion.
-Thank you. - vigo
 
 ---
 
@@ -70,6 +60,7 @@ You have some filters;
 
 - `DALFRelatedField`: inherited from `admin.RelatedFieldListFilter`.
 - `DALFRelatedFieldAjax`: inherited from `admin.RelatedFieldListFilter`
+- `DALFRelatedFieldAjaxMulti`: inherited from `admin.FieldListFilter` - **multi-select with AJAX**
 - `DALFRelatedOnlyField`: inherited from `admin.RelatedOnlyFieldListFilter`.
 - `DALFChoicesField`: inherited from `admin.ChoicesFieldListFilter`.
 
@@ -115,20 +106,25 @@ Example `admin.py`:
 
 ```python
 # admin.py
-from dalf.admin import DALFModelAdmin, DALFRelatedOnlyField, DALFRelatedFieldAjax
+from dalf.admin import DALFModelAdmin, DALFRelatedOnlyField, DALFRelatedFieldAjax, DALFRelatedFieldAjaxMulti
 from django.contrib import admin
 from YOURAPP.models import Post
 
 @admin.register(Post)
 class PostAdmin(DALFModelAdmin):
     list_filter = (
-        ('author', DALFRelatedOnlyField),    # if author has a post!
-        ('category', DALFRelatedFieldAjax),  # enable ajax completion for category field (FK)
-        ('tags', DALFRelatedFieldAjax),      # enable ajax completion for tags field (M2M)
+        ('author', DALFRelatedOnlyField),       # if author has a post!
+        ('category', DALFRelatedFieldAjax),     # enable ajax completion for category field (FK)
+        ('tags', DALFRelatedFieldAjax),         # enable ajax completion for tags field (M2M) - single select
+        ('tags', DALFRelatedFieldAjaxMulti),    # enable ajax completion for tags field (M2M) - multi select
     )
 ```
 
-That’s all... There is also `DALFChoicesField`, you can test it out:
+**Multi-select filter in action:**
+
+![DALFRelatedFieldAjaxMulti](screens/multiple.gif)
+
+That's all... There is also `DALFChoicesField`, you can test it out:
 
 ```python
 # admin.py
@@ -277,6 +273,14 @@ rake upload:test     # Upload package to test distro
 
 ## Change Log
 
+**2026-01-25**
+
+- Add [`DALFRelatedFieldAjaxMulti`](https://github.com/vigo/django-admin-list-filter/issues/15) -
+  multi-select filter with AJAX support for selecting multiple values
+- Fix clear button
+- Fix max-width (now all filters are same width)
+- Fix facet counts
+
 **2026-01-24**
 
 - Fix [DALFRelatedFieldAjax filter repopulation bug](https://github.com/vigo/django-admin-list-filter/issues/18) -
@@ -321,7 +325,11 @@ rake upload:test     # Upload package to test distro
 
 **2024-07-03**
 
-- Now package is working fine :) Thanks to [Bahattin][bahattincinic]!
+Now package is working fine :) Thanks to [Bahattin][bahattincinic]! Thanks to
+my dear friend [Bahattin Çiniç][bahattincinic]’s warning, He realized that the
+necessary HTML, CSS, and JavaScript files were missing from the published
+package! I quickly fixed this and published a new version. The `0.1.0` version
+is a faulty version. I apologize to the users for this confusion.
 
 ---
 
