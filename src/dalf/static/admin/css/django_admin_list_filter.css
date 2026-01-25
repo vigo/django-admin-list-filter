@@ -4,11 +4,15 @@ select.django-admin-list-filter-ajax-multi {
     width: 100%;
 }
 
+.django-admin-list-filter + .select2-container,
+.django-admin-list-filter-ajax + .select2-container,
 .django-admin-list-filter-ajax-multi + .select2-container {
     width: 100% !important;
+    box-sizing: border-box !important;
 }
 
 .django-admin-list-filter-ajax-multi + .select2-container .select2-selection--multiple {
+    box-sizing: border-box !important;
     min-height: 30px !important;
     height: auto !important;
     padding: 4px !important;
