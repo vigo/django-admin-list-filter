@@ -5,6 +5,7 @@
 - Add `DALFRelatedFieldAjaxMulti` for multi-select filtering with AJAX support
 - Multi-select uses comma-separated values with `__in` lookup (e.g., `?tags__in=uuid1,uuid2`)
 - Selected items display as pill-shaped tags with remove buttons
+- Fix clear button (×) incorrectly showing on non-AJAX filters when "All" was selected
 
 ---
 
