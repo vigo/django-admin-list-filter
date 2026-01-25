@@ -70,6 +70,7 @@ You have some filters;
 
 - `DALFRelatedField`: inherited from `admin.RelatedFieldListFilter`.
 - `DALFRelatedFieldAjax`: inherited from `admin.RelatedFieldListFilter`
+- `DALFRelatedFieldAjaxMulti`: inherited from `admin.FieldListFilter` - **multi-select with AJAX**
 - `DALFRelatedOnlyField`: inherited from `admin.RelatedOnlyFieldListFilter`.
 - `DALFChoicesField`: inherited from `admin.ChoicesFieldListFilter`.
 
@@ -115,16 +116,17 @@ Example `admin.py`:
 
 ```python
 # admin.py
-from dalf.admin import DALFModelAdmin, DALFRelatedOnlyField, DALFRelatedFieldAjax
+from dalf.admin import DALFModelAdmin, DALFRelatedOnlyField, DALFRelatedFieldAjax, DALFRelatedFieldAjaxMulti
 from django.contrib import admin
 from YOURAPP.models import Post
 
 @admin.register(Post)
 class PostAdmin(DALFModelAdmin):
     list_filter = (
-        ('author', DALFRelatedOnlyField),    # if author has a post!
-        ('category', DALFRelatedFieldAjax),  # enable ajax completion for category field (FK)
-        ('tags', DALFRelatedFieldAjax),      # enable ajax completion for tags field (M2M)
+        ('author', DALFRelatedOnlyField),       # if author has a post!
+        ('category', DALFRelatedFieldAjax),     # enable ajax completion for category field (FK)
+        ('tags', DALFRelatedFieldAjax),         # enable ajax completion for tags field (M2M) - single select
+        ('tags', DALFRelatedFieldAjaxMulti),    # enable ajax completion for tags field (M2M) - multi select
     )
 ```
 
@@ -276,6 +278,11 @@ rake upload:test     # Upload package to test distro
 ---
 
 ## Change Log
+
+**2026-01-25**
+
+- Add [`DALFRelatedFieldAjaxMulti`](https://github.com/vigo/django-admin-list-filter/issues/15) -
+  multi-select filter with AJAX support for selecting multiple values
 
 **2026-01-24**
 

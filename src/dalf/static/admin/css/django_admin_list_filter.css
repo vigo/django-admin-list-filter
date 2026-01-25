@@ -8,6 +8,56 @@ select.django-admin-list-filter-ajax-multi {
     width: 100% !important;
 }
 
+.django-admin-list-filter-ajax-multi + .select2-container .select2-selection--multiple {
+    min-height: 30px !important;
+    height: auto !important;
+    padding: 4px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.django-admin-list-filter-ajax-multi + .select2-container .select2-selection--multiple .select2-selection__rendered {
+    padding: 0 8px !important;
+    line-height: 30px !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+}
+
+.django-admin-list-filter-ajax-multi + .select2-container .select2-selection--multiple .select2-selection__rendered li {
+    margin: 0 2px !important;
+    padding: 0 0.5rem !important;
+    line-height: 30px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.django-admin-list-filter-ajax-multi + .select2-container .select2-selection--multiple .select2-selection__choice {
+    background-color: var(--darkened-bg, #e4e4e4) !important;
+    border: 1px solid var(--border-color, #ccc) !important;
+    border-radius: 10px !important;
+    padding: 0 8px !important;
+    margin: 2px 4px 2px 0 !important;
+    height: 22px !important;
+    line-height: 20px !important;
+    font-size: 0.75rem !important;
+}
+
+.django-admin-list-filter-ajax-multi + .select2-container .select2-selection--multiple .select2-selection__choice__remove {
+    margin-right: 4px !important;
+    color: var(--body-quiet-color, #666) !important;
+}
+
+.django-admin-list-filter-ajax-multi + .select2-container .select2-selection--multiple .select2-selection__choice__remove:hover {
+    color: var(--error-fg, #ba2121) !important;
+}
+
+.django-admin-list-filter-ajax-multi + .select2-container .select2-selection--multiple .select2-search--inline .select2-search__field {
+    margin: 0 !important;
+    height: 30px !important;
+    line-height: 30px !important;
+}
+
 html[data-theme="dark"] ul.select2-results__options {
     color: var(--primary);
 }

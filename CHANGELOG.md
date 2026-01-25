@@ -1,5 +1,13 @@
 # Change Log
 
+**2026-01-25**
+
+- Add `DALFRelatedFieldAjaxMulti` for multi-select filtering with AJAX support
+- Multi-select uses comma-separated values with `__in` lookup (e.g., `?tags__in=uuid1,uuid2`)
+- Selected items display as pill-shaped tags with remove buttons
+
+---
+
 **2026-01-24**
 
 - Fix `DALFRelatedFieldAjax` filter repopulation bug - selected values beyond first 20 results now display correctly on page reload
