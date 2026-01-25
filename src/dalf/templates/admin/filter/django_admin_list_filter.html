@@ -14,7 +14,7 @@
                         data-theme="admin-autocomplete"
                     >
                     {% for choice in choices %}
-                        {% if choice.display %}<option value="{{ choice.query_string|iriencode }}"{% if choice.selected %} selected{% endif %}>{{ choice.display }}</option>{% endif %}
+                        {% if choice.display %}<option value="{% if not forloop.first %}{{ choice.query_string|iriencode }}{% endif %}"{% if choice.selected %} selected{% endif %}>{{ choice.display }}</option>{% endif %}
                     {% endfor %}
                     </select>
                 {% endwith %}

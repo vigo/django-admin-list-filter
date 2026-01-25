@@ -123,7 +123,7 @@
     $(document).ready(function() {
         $('.django-admin-list-filter').select2({
             allowClear: true,
-            placeholder: getTextSafe("Filter")
+            placeholder: getTextSafe("All")
         }).on("select2:select", function(e){
             var navURL = new URL(window.location.href);
             let [fieldQueryParam, queryParams] = getQueryParams(e);
