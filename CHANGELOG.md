@@ -6,6 +6,8 @@
 - Multi-select uses comma-separated values with `__in` lookup (e.g., `?tags__in=uuid1,uuid2`)
 - Selected items display as pill-shaped tags with remove buttons
 - Fix clear button (×) incorrectly showing on non-AJAX filters when "All" was selected
+- Fix max-width (now all filters are same width)
+- Fix facet counts
 
 ---
 

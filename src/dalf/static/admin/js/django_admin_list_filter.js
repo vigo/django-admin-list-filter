@@ -12,6 +12,7 @@
             const selectedText = $(element).prevAll('.djal-selected-text').first().val();
 
             $(element).select2({
+                width: '100%',
                 ajax: {
                     data: (params) => {
                         return {

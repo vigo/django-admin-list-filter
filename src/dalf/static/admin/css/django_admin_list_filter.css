@@ -1,65 +1,33 @@
-select.django-admin-list-filter,
-select.django-admin-list-filter-ajax,
-select.django-admin-list-filter-ajax-multi {
-    width: 100%;
-}
-
-.django-admin-list-filter + .select2-container,
-.django-admin-list-filter-ajax + .select2-container,
-.django-admin-list-filter-ajax-multi + .select2-container {
-    width: 100% !important;
-    box-sizing: border-box !important;
-}
-
-.django-admin-list-filter-ajax-multi + .select2-container .select2-selection--multiple {
-    box-sizing: border-box !important;
-    min-height: 30px !important;
-    height: auto !important;
-    padding: 4px !important;
-    display: flex !important;
-    align-items: center !important;
+nav#changelist-filter {
+    .select2-selection__clear {
+        margin-top: 8px;
+        border: 1px solid #999;
+        border-radius: 4px;
+        line-height: 8px;
+        font-size: 8px;
+        padding: 1.5px 3px 2.2px;
+        font-weight: normal !important;
+        &:hover {
+            background-color: #eee;
+        }
+        
+        html[data-theme="dark"] & {
+            &:hover { background-color: #444; }
+        }
+        
+    }
+    .select2-selection__choice {
+        padding: 0 6px !important;
+    }
 }
 
 .django-admin-list-filter-ajax-multi + .select2-container .select2-selection--multiple .select2-selection__rendered {
-    padding: 0 8px !important;
-    line-height: 30px !important;
-    display: flex !important;
-    align-items: center !important;
-    flex-wrap: wrap !important;
-}
-
-.django-admin-list-filter-ajax-multi + .select2-container .select2-selection--multiple .select2-selection__rendered li {
-    margin: 0 2px !important;
-    padding: 0 0.5rem !important;
-    line-height: 30px !important;
-    display: flex !important;
-    align-items: center !important;
+    padding: 0 9px !important;
 }
 
 .django-admin-list-filter-ajax-multi + .select2-container .select2-selection--multiple .select2-selection__choice {
-    background-color: var(--darkened-bg, #e4e4e4) !important;
-    border: 1px solid var(--border-color, #ccc) !important;
-    border-radius: 10px !important;
-    padding: 0 8px !important;
-    margin: 2px 4px 2px 0 !important;
-    height: 22px !important;
-    line-height: 20px !important;
-    font-size: 0.75rem !important;
-}
-
-.django-admin-list-filter-ajax-multi + .select2-container .select2-selection--multiple .select2-selection__choice__remove {
     margin-right: 4px !important;
-    color: var(--body-quiet-color, #666) !important;
-}
-
-.django-admin-list-filter-ajax-multi + .select2-container .select2-selection--multiple .select2-selection__choice__remove:hover {
-    color: var(--error-fg, #ba2121) !important;
-}
-
-.django-admin-list-filter-ajax-multi + .select2-container .select2-selection--multiple .select2-search--inline .select2-search__field {
-    margin: 0 !important;
-    height: 30px !important;
-    line-height: 30px !important;
+    margin-bottom: 4px !important;
 }
 
 html[data-theme="dark"] ul.select2-results__options {

@@ -12,6 +12,7 @@
                         name="{{ params.field_name }}"
                         data-lookup-kwarg="{{ params.lookup_kwarg }}"
                         data-theme="admin-autocomplete"
+                        data-width="100%"
                     >
                     {% for choice in choices %}
                         {% if choice.display %}<option value="{{ choice.query_string|iriencode }}"{% if choice.selected %} selected{% endif %}>{{ choice.display }}</option>{% endif %}

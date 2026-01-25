@@ -31,16 +31,6 @@ After **Django Admin List Filter**
 
 ---
 
-## 2024-07-03
-
-Thanks to my dear friend [Bahattin Çiniç][bahattincinic]’s warning, He realized
-that the necessary HTML, CSS, and JavaScript files were missing from the
-published package! I quickly fixed this and published a new version. The `0.1.0`
-version is a faulty version. I apologize to the users for this confusion.
-Thank you. - vigo
-
----
-
 ## Installation
 
 ```bash
@@ -130,7 +120,11 @@ class PostAdmin(DALFModelAdmin):
     )
 ```
 
-That’s all... There is also `DALFChoicesField`, you can test it out:
+**Multi-select filter in action:**
+
+![DALFRelatedFieldAjaxMulti](screens/multiple.gif)
+
+That's all... There is also `DALFChoicesField`, you can test it out:
 
 ```python
 # admin.py
@@ -283,6 +277,9 @@ rake upload:test     # Upload package to test distro
 
 - Add [`DALFRelatedFieldAjaxMulti`](https://github.com/vigo/django-admin-list-filter/issues/15) -
   multi-select filter with AJAX support for selecting multiple values
+- Fix clear button
+- Fix max-width (now all filters are same width)
+- Fix facet counts
 
 **2026-01-24**
 
@@ -328,7 +325,11 @@ rake upload:test     # Upload package to test distro
 
 **2024-07-03**
 
-- Now package is working fine :) Thanks to [Bahattin][bahattincinic]!
+Now package is working fine :) Thanks to [Bahattin][bahattincinic]! Thanks to
+my dear friend [Bahattin Çiniç][bahattincinic]’s warning, He realized that the
+necessary HTML, CSS, and JavaScript files were missing from the published
+package! I quickly fixed this and published a new version. The `0.1.0` version
+is a faulty version. I apologize to the users for this confusion.
 
 ---
 
