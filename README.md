@@ -5,7 +5,7 @@
 [![PyPI version](https://img.shields.io/pypi/v/dalf.svg?style=for-the-badge&logo=pypi)](https://pypi.org/project/dalf/)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/dalf?style=for-the-badge&logo=pypi)
 [![Codecov](https://img.shields.io/codecov/c/github/vigo/django-admin-list-filter?token=6JRNSB6WN1&style=for-the-badge&logo=codecov)](https://codecov.io/gh/vigo/django-admin-list-filter)
-
+[![Latest on Django Packages](https://img.shields.io/badge/PyPI-{{ package.slug}}-tags-8c3c26.svg)](https://djangopackages.org/packages/p/django-admin-list-filter/)
 
 # Django Admin List Filter
 
