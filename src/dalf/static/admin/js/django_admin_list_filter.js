@@ -124,21 +124,18 @@
     $(document).ready(function() {
         $('.django-admin-list-filter').select2({
         }).on("select2:select", function(e){
-            var navURL = new URL(window.location.href);
-            let [fieldQueryParam, queryParams] = getQueryParams(e);
-            var isAllorEmptyChoice = true;
-
-            queryParams.forEach(function(item){
-                var [field, value] = item.split("=");
-                if (field == fieldQueryParam) {
-                    isAllorEmptyChoice = false;
-                    navURL.searchParams.set(field, decodeURIComponent(value));
-                }
-            });
-            if (isAllorEmptyChoice) {
-                navURL.searchParams.delete(fieldQueryParam);
-            }
-            window.location.href = navURL.href;
+            // Navigate directly to the pre-computed query string that Django embeds
+            // in each option's value attribute. This handles all three cases correctly:
+            //   - Specific value:  ?field__id__exact=5
+            //   - All (no filter): ?...                (filter param removed)
+            //   - None / isnull:   ?field__isnull=True
+            //
+            // The previous URL-reconstruction approach only matched the __exact param
+            // against data-lookup-kwarg; the __isnull option uses a different param
+            // name so it was never matched, isAllorEmptyChoice stayed true, and the
+            // handler cleared the filter instead of applying it -- making the "-" (None)
+            // option appear to do nothing.
+            window.location.search = e.params.data.id;
 
         }).on("select2:unselect", function(e){
             var navURL = new URL(window.location.href);
